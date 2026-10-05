@@ -92,7 +92,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectMoverControllableAction
   target: {fileID: 3054551120820373244}
   pivot: {fileID: 3054551120820373244}
-  rotationChange: {x: 0, y: -90, z: 0}
+  rotationChange: {x: 0, y: 90, z: 0}
   positionChange: {x: 0, y: 0, z: 0}
   positionChangeIsLocal: 1
   rotationDelay: 0
