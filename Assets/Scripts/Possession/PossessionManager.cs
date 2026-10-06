@@ -12,6 +12,9 @@ public sealed class PossessionManager : MonoBehaviour
 {
     [SerializeField] private OrbitCamera orbitCamera;
     [SerializeField] private PossessionHud possessionHud;
+    [Header("Starting Possession")]
+    [Tooltip("The Controllable that is possessed immediately when this scene starts.")]
+    [SerializeField] private Controllable startingControllable;
     [Header("Possession Mode Vignette")]
     [SerializeField] private Volume postProcessVolume;
     [SerializeField, Range(0f, 1f)] private float possessionModeVignetteIntensity = 0.12f;
@@ -47,6 +50,11 @@ public sealed class PossessionManager : MonoBehaviour
         }
 
         SetPossessionMode(false);
+    }
+
+    private void Start()
+    {
+        PossessStartingControllable();
     }
 
     private void Update()
@@ -105,6 +113,19 @@ public sealed class PossessionManager : MonoBehaviour
         IsInputLocked = true;
         SetPossessionMode(true);
         return true;
+    }
+
+    private void PossessStartingControllable()
+    {
+        if (startingControllable == null || !startingControllable.CanBePossessed)
+            return;
+
+        Current = startingControllable;
+        Current.OnPossessed(this);
+        Current.SetPossessionInputEnabled(true);
+        orbitCamera?.SetTarget(Current.CameraTarget, snap: true);
+        PossessionChanged?.Invoke(Current);
+        SetPossessionMode(false);
     }
 
     public void ReleaseCurrent()

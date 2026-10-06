@@ -1,7 +1,7 @@
 # Possession system setup
 
 1. Put `OrbitCamera` on the main camera. It can begin without a target.
-2. Create a `PossessionManager` object, then assign that camera component to it.
+2. Create a `PossessionManager` object, then assign that camera component to it. Optionally assign a `Controllable` to **Starting Controllable** to begin the scene possessing it immediately.
 3. Add `PossessionSelector` to the same object (or another persistent player object), and assign the camera and manager.
 4. Give every possessable object a collider and a `Controllable` component. Put selectable objects on a dedicated `Possessable` layer and use that layer in the selector's **Selectable Layers** field.
 5. Add object-specific components beside `Controllable`. Components implementing `IPossessionInputReceiver` receive input only while possessed. Components implementing `IControllableAction` respond to the primary action click. `RigidbodyPossessedMover` is an intentionally simple movement example.
